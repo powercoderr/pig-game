@@ -30,14 +30,8 @@ const gameReset = function () {
   });
 
   //Set player--0 as active player
-
-  if (!firstPlayer.classList.contains('player--active')) {
-    firstPlayer.classList.add('player--active');
-  }
-
-  if (secondPlayer.contains('player--active')) {
-    secondPlayer.classList.remove('player--active');
-  }
+  setPlayerActivation(firstPlayer, true);
+  setPlayerActivation(secondPlayer, false);
 };
 
 const rollDice = function () {
