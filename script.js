@@ -29,7 +29,7 @@ const gameReset = function () {
     element.textContent = currentScore;
   });
 
-  //Set first as active player
+  //Set first player as active player
   setPlayerActivation(firstPlayer, true);
   setPlayerActivation(secondPlayer, false);
 };
