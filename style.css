@@ -165,3 +165,11 @@ main {
   font-weight: 700;
   color: #c7365f;
 }
+
+.winner-popup {
+  position: absolute;
+  margin: 0 auto;
+  top: 2rem;
+  font-size: 2rem;
+  font-style: italic;
+}

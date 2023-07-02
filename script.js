@@ -3,6 +3,7 @@
 //Global Variable for the game
 const maxDice = 6;
 const minDice = 1;
+const maxScore = 100;
 let dice = 0;
 let currentScore = 0;
 let playerScore = 0;
@@ -28,6 +29,11 @@ const gameReset = function () {
   document.querySelectorAll('.current-score').forEach(element => {
     element.textContent = currentScore;
   });
+
+  //Set roll & hold button to visible and winner-popup to invisible
+  holdDiceBtn.style.display = 'inline-block';
+  rollDiceBtn.style.display = 'inline-block';
+  document.querySelector('.winner-popup').remove();
 
   //Set first player as active player
   setPlayerActivation(firstPlayer, true);
@@ -61,7 +67,17 @@ const holdDice = function () {
 
   playerScore = getPlayerScore(player) + currentScore;
   setPlayerScore(player, playerScore);
-  changeActivePlayer();
+
+  if (playerScore >= maxScore) {
+    player.insertAdjacentHTML(
+      'afterbegin',
+      `<h2 class="winner-popup"> 🎉You are the winner!</h2>`
+    );
+    holdDiceBtn.style.display = 'none';
+    rollDiceBtn.style.display = 'none';
+  } else {
+    changeActivePlayer();
+  }
 };
 
 const isActivePlayer = function (player) {
