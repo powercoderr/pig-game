@@ -173,3 +173,11 @@ main {
   font-size: 2rem;
   font-style: italic;
 }
+
+.display-none {
+  display: none;
+}
+
+.display-inline-block {
+  display: inline-block;
+}

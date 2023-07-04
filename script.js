@@ -21,26 +21,45 @@ const gameReset = function () {
   playerScore = 0;
   currentScore = 0;
 
-  //Set score & current-score to 0
-  document.querySelectorAll('.score').forEach(element => {
-    element.textContent = playerScore;
+  //Set all player score & current-score to 0
+  const allplayerScoreElement = document.querySelectorAll('.score');
+  const allCurrentScoreElement = document.querySelectorAll('.current-score');
+
+  allplayerScoreElement.forEach(playerScoreElement => {
+    playerScoreElement.textContent = playerScore;
   });
 
-  document.querySelectorAll('.current-score').forEach(element => {
-    element.textContent = currentScore;
+  allCurrentScoreElement.forEach(currentScoreElement => {
+    currentScoreElement.textContent = currentScore;
   });
 
-  //Set roll & hold button to visible and winner-popup to invisible
+  //Show holdDiceBtn & rollDiceBtn
   holdDiceBtn.style.display = 'inline-block';
   rollDiceBtn.style.display = 'inline-block';
-  document.querySelector('.winner-popup').remove();
 
   //Set first player as active player
   setPlayerActivation(firstPlayer, true);
   setPlayerActivation(secondPlayer, false);
+
+  //Hide dice when reset the game
+  const isDiceNotDisplayed = diceImage.classList.contains('display-none');
+  if (!diceImage.classList.contains('display-none')) {
+    diceImage.classList.add('display-none');
+  }
+
+  //Hide winner popup when reset the game (if exist)
+  const winnerPopup = document.querySelector('.winner-popup');
+  if (winnerPopup) {
+    winnerPopup.remove();
+  }
 };
 
 const rollDice = function () {
+  //Display dice when starting the game
+  if (diceImage.classList.contains('display-none')) {
+    diceImage.classList.remove('display-none');
+  }
+
   dice = Math.floor(Math.random() * maxDice) + minDice;
   diceImage.src = `dice-${dice}.png`;
 
@@ -69,15 +88,19 @@ const holdDice = function () {
   setPlayerScore(player, playerScore);
 
   if (playerScore >= maxScore) {
-    player.insertAdjacentHTML(
-      'afterbegin',
-      `<h2 class="winner-popup"> 🎉You are the winner!</h2>`
-    );
-    holdDiceBtn.style.display = 'none';
-    rollDiceBtn.style.display = 'none';
+    setTheWinner(player);
   } else {
     changeActivePlayer();
   }
+};
+
+const setTheWinner = function (player) {
+  player.insertAdjacentHTML(
+    'afterbegin',
+    `<h2 class="winner-popup"> 🎉You are the winner!</h2>`
+  );
+  holdDiceBtn.style.display = 'none';
+  rollDiceBtn.style.display = 'none';
 };
 
 const isActivePlayer = function (player) {
