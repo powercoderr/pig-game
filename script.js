@@ -3,7 +3,7 @@
 //Global Variable for the game
 const maxDice = 6;
 const minDice = 1;
-const maxScore = 100;
+const maxScore = 10;
 let dice = 0;
 let currentScore = 0;
 let playerScore = 0;
@@ -22,20 +22,20 @@ const gameReset = function () {
   currentScore = 0;
 
   //Set all player score & current-score to 0
-  const allplayerScoreElement = document.querySelectorAll('.score');
-  const allCurrentScoreElement = document.querySelectorAll('.current-score');
+  const playerScores = document.querySelectorAll('.score');
+  const currentScores = document.querySelectorAll('.current-score');
 
-  allplayerScoreElement.forEach(playerScoreElement => {
+  playerScores.forEach(playerScoreElement => {
     playerScoreElement.textContent = playerScore;
   });
 
-  allCurrentScoreElement.forEach(currentScoreElement => {
+  currentScores.forEach(currentScoreElement => {
     currentScoreElement.textContent = currentScore;
   });
 
   //Show holdDiceBtn & rollDiceBtn
-  holdDiceBtn.style.display = 'inline-block';
-  rollDiceBtn.style.display = 'inline-block';
+  holdDiceBtn.classList.remove('display-none');
+  rollDiceBtn.classList.remove('display-none');
 
   //Set first player as active player
   setPlayerActivation(firstPlayer, true);
@@ -99,8 +99,8 @@ const setTheWinner = function (player) {
     'afterbegin',
     `<h2 class="winner-popup"> 🎉You are the winner!</h2>`
   );
-  holdDiceBtn.style.display = 'none';
-  rollDiceBtn.style.display = 'none';
+  holdDiceBtn.classList.add('display-none');
+  rollDiceBtn.classList.add('display-none');
 };
 
 const isActivePlayer = function (player) {
